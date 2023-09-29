@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+import hunspell
+hobj = hunspell.HunSpell('/home/aigiz/Bashkort_SpellChecker/SpellChecker/bash.dic', '/home/aigiz/Bashkort_SpellChecker/SpellChecker/bash.aff')
 
 
 def index(request):
@@ -11,8 +13,8 @@ def index(request):
 def spellChecker(unverified_words):
     correct=[]
     for i in range(len(unverified_words)):
-        if len(unverified_words[i])<=3:
-            correct.append({'word': unverified_words[i],'variants':[unverified_words[i], 'вариант1', 'вариант2', 'вариант3']})
+        if not hobj.spell(unverified_words[i]):
+            correct.append({'word': unverified_words[i],'variants':hobj.suggest(unverified_words[i])})
         else:
             correct.append({'word': unverified_words[i],'variants':[]})
     return correct
