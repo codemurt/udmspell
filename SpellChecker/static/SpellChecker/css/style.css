@@ -1,0 +1,319 @@
+{% load static %}
+@font-face {
+  font-family: 'Montserrat-SemiBold'; /* Имя шрифта, которое вы будете использовать в вашем CSS */
+  src: url('/static/SpellChecker/font/Montserrat/Montserrat-SemiBold.ttf') format('truetype'), /* Путь к .woff2 файлу */
+      url('/static/SpellChecker/font/Montserrat/Montserrat-Regular.ttf') format('truetype');
+  /* Другие параметры шрифта (размер, начертание и т. д.) могут быть указаны здесь */
+}
+
+@font-face {
+  font-family: 'Montserrat-Medium'; /* Имя шрифта, которое вы будете использовать в вашем CSS */
+  src: url('/static/SpellChecker/font/Montserrat/Montserrat-Medium.ttf') format('truetype');
+  /* Другие параметры шрифта (размер, начертание и т. д.) могут быть указаны здесь */
+}
+
+
+body{
+  background-color: #D5E6F2;
+}
+
+
+.navbar{
+  height: 9.25vh;
+  min-height: 50px;
+}
+
+
+.navbar-brand {
+  width: 16%;
+  min-width: 180px;
+  height: auto;
+  margin-left: 6.9%;
+}
+
+
+#box{
+  position: relative;
+  width: 85%;
+  z-index: 1;
+  height: 58vh;
+  min-height: 390px;
+  border: 3px solid #ACD7FA;
+  background-color: white;
+  border-radius:20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 9.25vh;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  font-family: 'Montserrat-SemiBold';
+}
+
+
+#head_container{
+  display: flex;
+  width: 100%;
+  height: 13%;
+  border-bottom: 3px solid #ACD7FA;
+  padding: 0px 1.6% 0px 1.6%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+#text_content{
+  position: relative;
+  width: 100%;
+  height: 75%;
+  padding: 0.7% 1.6% 0px 1.6%;
+  outline: none;
+  color: black;
+  text-align: left;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 2;
+}
+
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  box-shadow: none;
+  /* Добавьте другие стили по вашему выбору */
+}
+
+#copy_text_img{
+  width: auto;
+  height: 100%;
+
+}
+
+#copy_text_btn{
+  height: 100%;
+  width: auto;
+  padding: 0px;
+  margin: 0 20px 0 0;
+  outline: none;
+}
+
+#copy_text_img:hover{
+  opacity: 0;
+}
+
+#copy_text_btn:hover{
+  background-image:url('/static/SpellChecker/images/copy_text_2.png');
+  background-size: 100%;
+}
+
+#copy_text_img:active{
+  opacity: 0;
+}
+
+#copy_text_btn:active{
+  background-image:url('/static/SpellChecker/images/copy_text_3.png');
+  background-size: 100%;
+}
+
+
+.dbl_btn{
+  height: 62.5%;
+}
+
+.dbl_btn2{
+  display: flex;
+  height: 62.5%;
+  align-items: center;
+}
+
+#error_btn{
+  display: none;
+  height: 100%;
+  padding: 0px;
+  margin: 0px 6px 0px 6px;
+  outline: none;
+}
+
+#error_img{
+  width: auto;
+  height: 100%;
+}
+
+#error_img:hover{
+  opacity: 0;
+}
+
+#error_btn:hover{
+  background-image:url('/static/SpellChecker/images/previous2.png');
+  background-size: 100%;
+}
+
+#error_img:active{
+  opacity: 0;
+}
+
+#error_btn:active{
+  background-image:url('/static/SpellChecker/images/previous3.png');
+  background-size: 100%;
+}
+
+#error_btn2{
+  display: none;
+  height: 100%;
+  padding: 0px;
+  margin: 0px 6px 0px 6px;
+  outline: none;
+}
+
+#error_img2{
+  width: auto;
+  height: 100%;
+}
+
+#error_img2:hover{
+  opacity: 0;
+}
+
+#error_btn2:hover{
+  background-image:url('/static/SpellChecker/images/next2.png');
+  background-size: 100%;
+}
+
+#error_img2:active{
+  opacity: 0;
+}
+
+#error_btn2:active{
+  background-image:url('/static/SpellChecker/images/next3.png');
+  background-size: 100%;
+}
+
+
+#clean_text{
+
+
+  height: 4.5%;
+  min-height: 24px;
+  width: 1.75%;
+  min-width: 24px;
+  background-image:url('/static/SpellChecker/images/clean_text.png');
+  background-size:100%;
+  padding: 0px;
+  outline: none;
+}
+
+#clean_text:hover{
+  background-image:url('/static/SpellChecker/images/clean_text2.png');
+  background-size: 100%;
+}
+
+#clean_text:active{
+  background-image:url('/static/SpellChecker/images/clean_text3.png');
+  background-size: cover;
+}
+
+#inform{
+  position: absolute;
+  left: 1.6%;
+  bottom: 3%;
+  display: none;
+  height: 30px;
+  border: 1px solid #ACD7FA;
+  border-radius: 20px;
+  padding: 0px 10px 0px 10px;
+}
+
+
+#placeholder {
+  position: absolute;
+  z-index: 2;
+  top: 15%;
+  left: 1.6%;
+  color: #999;
+  pointer-events: none; /* Это предотвращает взаимодействие с подсказкой */
+  user-select: none; /* Это предотвращает выделение текста в подсказке */
+}
+
+
+
+
+.dropdown-trigger {
+  position: relative;
+  cursor: pointer;
+  border-bottom: 3px solid #FF4C4C;
+}
+
+.dropdown-container{
+display: inline-block;
+}
+
+
+
+#rightWordDiv{
+  display: none;
+  position: absolute;
+  z-index: 9999;
+  background-color: #F7F8FB;
+  border: 2px solid #B3C7DF;
+  border-radius: 7%;
+  width: 24%;
+  min-width: 300px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  color: #4C4C4C;
+}
+
+
+#lineOne{
+  margin: 4.8% 4.8% 0 4.8%;
+}
+
+
+#dropdownlist{
+  display: block;
+  list-style: none;
+  padding: 0;
+  margin: 15px 4.8%;
+  text-decoration: underline;
+}
+
+#dropdownlist li{
+  cursor: pointer;
+  margin: 2px 0;
+}
+
+#dropdownlist li:hover{
+  color: #1E50A5;
+  text-decoration: underline #1E50A5;
+}
+
+
+#ignor{
+  margin: 0 5% 10px 5%;
+  width: 90%;
+  min-width: 260px;
+  padding: 0;
+  outline: none;
+
+}
+
+#ignor_img{
+  width: 100%;
+}
+
+#ignor_img:hover{
+  opacity: 0;
+}
+
+#ignor:hover{
+  background-image:url('/static/SpellChecker/images/ignor2.png');
+  background-size: 100%;
+}
+
+#ignor_img:active{
+  opacity: 0;
+}
+
+#ignor:active{
+  background-image:url('/static/SpellChecker/images/ignor3.png');
+  background-size: 100%;
+}
