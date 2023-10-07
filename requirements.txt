@@ -1,2 +1,2 @@
-django
-razdel
+fastapi[all]
+uvicorn

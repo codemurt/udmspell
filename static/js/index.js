@@ -130,9 +130,9 @@ function sendOnBackend(){
 
 
 
-function request_server(null_array){
+function request_server(check_candidates){
 
-  const dataToSend = {unverified_words:null_array};
+  const dataToSend = {unverified_words:check_candidates};
   const requestOptions = {
     method: 'POST',
     headers: {
@@ -208,7 +208,7 @@ function correctDivContentText(srcText){
             DivCorrect.id = "rightWordDiv";
             DivCorrect.setAttribute('contenteditable', 'false');
 
-            DivCorrect.innerHTML=`<div id="lineOne"><img src="/static/SpellChecker/images/!.png">    Ихтимал булған төҙәтмә</div>`;
+            DivCorrect.innerHTML=`<div id="lineOne"><img src="/static/images/!.png">    Ихтимал булған төҙәтмә</div>`;
 
             const list = document.createElement("ul");
             list.id="dropdownlist";
@@ -221,7 +221,7 @@ function correctDivContentText(srcText){
 
 
             DivCorrect.appendChild(list);
-            DivCorrect.innerHTML += `<button id="ignor" onclick='ignorError(event)'><img id="ignor_img" src="/static/SpellChecker/images/ignor.png" alt=""></button>`;
+            DivCorrect.innerHTML += `<button id="ignor" onclick='ignorError(event)'><img id="ignor_img" src="/static/images/ignor.png" alt=""></button>`;
 
             dropdownDiv.appendChild(trigger);
 
