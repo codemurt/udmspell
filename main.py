@@ -8,7 +8,7 @@ from pydantic import BaseModel
 from starlette.requests import Request
 from starlette.responses import FileResponse
 
-ACTUAL_BASH_HUNSPELL_VERSION = "06.10.2023"
+ACTUAL_BASH_HUNSPELL_VERSION = "06.10.2023_code"
 
 app = FastAPI()
 
@@ -34,12 +34,18 @@ async def read_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 
+def cleanup(item:str):
+    item=item.lstrip("—")
+    return item
+
 def spellChecker(unverified_words):
     correct = []
     for i in range(len(unverified_words)):
-        if not hobj.spell(unverified_words[i]):
+        word = unverified_words[i]
+        word = cleanup(word)
+        if not hobj.spell(word):
             correct.append({'word': unverified_words[i],
-                            'variants': hobj.suggest(unverified_words[i])})
+                            'variants': hobj.suggest(word)})
         else:
             correct.append({'word': unverified_words[i], 'variants': []})
     return correct
