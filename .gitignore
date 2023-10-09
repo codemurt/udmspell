@@ -1,2 +1,6 @@
 Lib
 __pycache__
+.idea
+venv
+.DS_Store
+stat.db
