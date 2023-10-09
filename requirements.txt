@@ -1,1 +1,3 @@
-django
+fastapi[all]
+uvicorn
+hunspell

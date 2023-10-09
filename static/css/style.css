@@ -1,14 +1,13 @@
-{% load static %}
 @font-face {
   font-family: 'Montserrat-SemiBold'; /* Имя шрифта, которое вы будете использовать в вашем CSS */
-  src: url('/static/SpellChecker/font/Montserrat/Montserrat-SemiBold.ttf') format('truetype'), /* Путь к .woff2 файлу */
-      url('/static/SpellChecker/font/Montserrat/Montserrat-Regular.ttf') format('truetype');
+  src: url('/static/font/Montserrat/Montserrat-SemiBold.ttf') format('truetype'), /* Путь к .woff2 файлу */
+      url('/static/font/Montserrat/Montserrat-Regular.ttf') format('truetype');
   /* Другие параметры шрифта (размер, начертание и т. д.) могут быть указаны здесь */
 }
 
 @font-face {
   font-family: 'Montserrat-Medium'; /* Имя шрифта, которое вы будете использовать в вашем CSS */
-  src: url('/static/SpellChecker/font/Montserrat/Montserrat-Medium.ttf') format('truetype');
+  src: url('/static/font/Montserrat/Montserrat-Medium.ttf') format('truetype');
   /* Другие параметры шрифта (размер, начертание и т. д.) могут быть указаны здесь */
 }
 
@@ -102,7 +101,7 @@ button {
 }
 
 #copy_text_btn:hover{
-  background-image:url('/static/SpellChecker/images/copy_text_2.png');
+  background-image:url('/static/images/copy_text_2.png');
   background-size: 100%;
 }
 
@@ -111,7 +110,7 @@ button {
 }
 
 #copy_text_btn:active{
-  background-image:url('/static/SpellChecker/images/copy_text_3.png');
+  background-image:url('/static/images/copy_text_3.png');
   background-size: 100%;
 }
 
@@ -144,7 +143,7 @@ button {
 }
 
 #error_btn:hover{
-  background-image:url('/static/SpellChecker/images/previous2.png');
+  background-image:url('/static/images/previous2.png');
   background-size: 100%;
 }
 
@@ -153,7 +152,7 @@ button {
 }
 
 #error_btn:active{
-  background-image:url('/static/SpellChecker/images/previous3.png');
+  background-image:url('/static/images/previous3.png');
   background-size: 100%;
 }
 
@@ -175,7 +174,7 @@ button {
 }
 
 #error_btn2:hover{
-  background-image:url('/static/SpellChecker/images/next2.png');
+  background-image:url('/static/images/next2.png');
   background-size: 100%;
 }
 
@@ -184,7 +183,7 @@ button {
 }
 
 #error_btn2:active{
-  background-image:url('/static/SpellChecker/images/next3.png');
+  background-image:url('/static/images/next3.png');
   background-size: 100%;
 }
 
@@ -196,19 +195,19 @@ button {
   min-height: 24px;
   width: 1.75%;
   min-width: 24px;
-  background-image:url('/static/SpellChecker/images/clean_text.png');
+  background-image:url('/static/images/clean_text.png');
   background-size:100%;
   padding: 0px;
   outline: none;
 }
 
 #clean_text:hover{
-  background-image:url('/static/SpellChecker/images/clean_text2.png');
+  background-image:url('/static/images/clean_text2.png');
   background-size: 100%;
 }
 
 #clean_text:active{
-  background-image:url('/static/SpellChecker/images/clean_text3.png');
+  background-image:url('/static/images/clean_text3.png');
   background-size: cover;
 }
 
@@ -305,7 +304,7 @@ display: inline-block;
 }
 
 #ignor:hover{
-  background-image:url('/static/SpellChecker/images/ignor2.png');
+  background-image:url('/static/images/ignor2.png');
   background-size: 100%;
 }
 
@@ -314,6 +313,6 @@ display: inline-block;
 }
 
 #ignor:active{
-  background-image:url('/static/SpellChecker/images/ignor3.png');
+  background-image:url('/static/images/ignor3.png');
   background-size: 100%;
 }
