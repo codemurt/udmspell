@@ -221,7 +221,7 @@ function correctDivContentText(srcText){
 
 
             DivCorrect.appendChild(list);
-            DivCorrect.innerHTML += `<button id="ignor" onclick='ignorError(event)'><img id="ignor_img" src="/static/images/ignor.png" alt=""></button>`;
+            DivCorrect.innerHTML += `<button id="ignor" onclick='ignorError(event)'><img id="ignor_img" src="/static/images/new_ignor.png" alt=""><span id="t_ig">Ҡалдырырға</span></button>`;
 
             dropdownDiv.appendChild(trigger);
 
