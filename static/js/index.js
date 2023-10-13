@@ -98,7 +98,7 @@ function sendOnBackend(){
       if (DICT.hasOwnProperty(key) && DICT[key] === null) {
         k++;
         null_array.push(key);
-        if(null_array.length===10){
+        if(null_array.length===100){
           request_server(null_array);
           null_array=[];
         }
