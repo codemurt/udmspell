@@ -3,6 +3,8 @@ var TEXT;
 var timer, count_symbol=0, count_word=0, count_error=0; // Таймер
 let savedSelection;
 var spans=0;
+let currentIndex = -1; // Индекс текущего выделенного слова
+
 
 //Удаление стилей текста перед вставкой и разделение на абзацы
 function stripStyles(e) {
@@ -197,6 +199,7 @@ function correctDivContentText(srcText){
                 j=1;
                 word=textValue;
             }
+            /*
             const dropdownDiv = document.createElement("div");
             dropdownDiv.className = "dropdown-container";
 
@@ -228,10 +231,11 @@ function correctDivContentText(srcText){
             dropdownDiv.appendChild(DivCorrect);
 
             trigger.setAttribute("onclick", "toggleListDisplayblock(this)");
+            */
             if (j===1){
-                return `<div class="dropdown-container" >${dropdownDiv.innerHTML}</div><br> `;
+                return `<span class='dropdown-trigger' onclick='toggleListDisplayblock(event)'>${word}</span><br> `;
             }else {
-                return `<div class="dropdown-container" >${dropdownDiv.innerHTML}</div>`;
+                return `<span class='dropdown-trigger' onclick='toggleListDisplayblock(event)'>${word}</span>`;
             }
 
          }else {
@@ -245,18 +249,63 @@ function correctDivContentText(srcText){
  }
 
 
+DivCorrect=document.createElement("div");
+DivCorrect.id = "rightWordDiv";
+DivCorrect.setAttribute('contenteditable', 'false');
 
-function toggleListDisplayblock(the) {
-    list=the.nextElementSibling;
-    list.style.display = list.style.display === "block" ? "none" : "block";
+DivCorrect.innerHTML=`<div id="lineOne"><img src="/static/images/!.png">    Ихтимал булған төҙәтмә</div>`;
 
-    rect1 = text_content.getBoundingClientRect();
-    rect2 = list.getBoundingClientRect();
-    overlapRight = rect2.right - rect1.right;
+const list_v = document.createElement("ul");
+list_v.id="dropdownlist";
+list_v.setAttribute("onclick", "handleOptionClick(event, this)");
+DivCorrect.appendChild(list_v);
 
-    if (overlapRight > 0) {
-      list.style.right='0px';
-    }
+var ignorButton = document.createElement('button');
+ignorButton.id = 'ignor';
+ignorButton.setAttribute('onclick', 'ignorError(event)');
+
+var img = document.createElement('img');
+img.id = 'ignor_img';
+img.src = '/static/images/new_ignor.png';
+img.alt = '';
+
+var leave= document.createElement('span');
+leave.id = 't_ig';
+leave.innerText = 'Ҡалдырырға';
+
+ignorButton.appendChild(img);
+ignorButton.appendChild(leave);
+
+DivCorrect.appendChild(ignorButton);
+DivCorrect.style.display='block';
+
+
+
+function toggleListDisplayblock(event) {
+  var textValue = event.target.textContent.replace(/<\/?[^>]+(>|$)/g, "");
+  var cleanWord = textValue.replace(/[.,!?;:()"“”'–−«»]/g, "");
+
+  list_v.innerHTML = "";
+  for (let i = 0; i < DICT[cleanWord].length; i++) {
+      const option = document.createElement("li");
+      option.innerHTML = `${DICT[cleanWord][i]}`;
+      list_v.appendChild(option);
+  }
+
+  event.target.insertAdjacentElement('afterend', DivCorrect);
+
+  rect1 = text_content.getBoundingClientRect();
+  var spanRect = event.target.getBoundingClientRect();
+  // Позиционируем rightWordDiv под span
+  DivCorrect.style.left = spanRect.left - rect1.left + 'px';
+
+  rect2 = DivCorrect.getBoundingClientRect();
+  overlapRight = rect2.right - rect1.right;
+
+  if (overlapRight > 0) {
+    DivCorrect.style.right='0px';
+    DivCorrect.style.left='auto';
+  }
 }
 
 
@@ -264,10 +313,10 @@ function handleOptionClick(event, the) {
     if(currentIndex>-1){
       currentIndex--;
     }
-    dropdownDiv=event.currentTarget.parentElement.parentElement;
+    span_teg=event.currentTarget.parentElement.previousElementSibling;
     if (event.target.tagName === "LI") {
         const selectedOption = event.target.textContent;
-        dropdownDiv.innerHTML = `${selectedOption}`;
+        span_teg.outerHTML = `${selectedOption}`;
         cleanWord = selectedOption.replace(/[.,!?;:()"“”'–−«»]/g, "");
         DICT[cleanWord]=[];
     }
@@ -288,10 +337,10 @@ function ignorError(event){
     if(currentIndex>-1){
       currentIndex--;
     }
-    dropdownDiv=event.currentTarget.parentElement.parentElement;
+    span_teg=event.currentTarget.parentElement.previousElementSibling;
     ignorWord=event.currentTarget.parentElement.previousElementSibling.textContent;
     cleanWord = ignorWord.replace(/[.,!?;:()"“”'–−«»]/g, "");
-    dropdownDiv.innerHTML=`${ignorWord}`;
+    span_teg.outerHTML=`${ignorWord}`;
     DICT[cleanWord]=[];
     count_error=countTags();
     divCountError.textContent=count_error;
@@ -309,15 +358,11 @@ function ignorError(event){
 var dbl_btn=document.getElementById('dbl_btn');
 
 document.addEventListener('click', function (event) {
-  var containers = document.querySelectorAll('.dropdown-container');
+  var containers = document.getElementById('rightWordDiv');
 
-  containers.forEach(function (container) {
-    var ul = container.querySelector('div');
-
-    if (container !== event.target && !container.contains(event.target) && dbl_btn!==event.target && !dbl_btn.contains(event.target) && ul !== null) {
-      ul.style.display = 'none';
-    }
-  });
+  if (containers && containers !== event.target && event.target !== containers.previousElementSibling && dbl_btn!==event.target && !dbl_btn.contains(event.target)) {
+    text_content.removeChild(containers);
+  }
 });
 
 
@@ -368,6 +413,7 @@ function cleanTextContainer(){
   divCountError.textContent=0;
   btn1.style.display='none';
   btn2.style.display='none';
+  currentIndex = -1;
 }
 
 
@@ -384,31 +430,49 @@ var next_btn=document.getElementById('error_btn2');
 next_btn.setAttribute("onclick", "nextWord()");
 back_btn.setAttribute("onclick", "backWord()");
 
-let currentIndex = -1; // Индекс текущего выделенного слова
+
+function next_back(event) {
+  var textValue = event.textContent.replace(/<\/?[^>]+(>|$)/g, "");
+  var cleanWord = textValue.replace(/[.,!?;:()"“”'–−«»]/g, "");
+
+  list_v.innerHTML = "";
+  for (let i = 0; i < DICT[cleanWord].length; i++) {
+      const option = document.createElement("li");
+      option.innerHTML = `${DICT[cleanWord][i]}`;
+      list_v.appendChild(option);
+  }
+
+  event.insertAdjacentElement('afterend', DivCorrect);
+
+  rect1 = text_content.getBoundingClientRect();
+  var spanRect = event.getBoundingClientRect();
+  // Позиционируем rightWordDiv под span
+  DivCorrect.style.left = spanRect.left - rect1.left + 'px';
+
+  rect2 = DivCorrect.getBoundingClientRect();
+  overlapRight = rect2.right - rect1.right;
+
+  if (overlapRight > 0) {
+    DivCorrect.style.right='0px';
+    DivCorrect.style.left='auto';
+  }
+}
+
 
   // Функция для выделения следующего слова
   function nextWord() {
     if (currentIndex < spans.length - 1) {
       if(currentIndex === -1){
         currentIndex++;
-        list=spans[currentIndex].nextElementSibling;
-        list.style.display = 'block';
+        next_back(spans[currentIndex]);
       }else{
         list=spans[currentIndex].nextElementSibling;
-        list.style.display = 'none';
+        if (list.tagName === 'DIV'){
+          text_content.removeChild(list);
+        }
         currentIndex++;
-        list=spans[currentIndex].nextElementSibling;
-        list.style.display = 'block';
+        next_back(spans[currentIndex]);
       }
-
-      rect1 = text_content.getBoundingClientRect();
-      rect2 = list.getBoundingClientRect();
-      overlapRight = rect2.right - rect1.right;
-
-      if (overlapRight > 0) {
-        list.style.right='0px';
-      }
-
     }
   }
 
@@ -416,9 +480,10 @@ let currentIndex = -1; // Индекс текущего выделенного �
   function backWord() {
     if (currentIndex > 0) {
       list=spans[currentIndex].nextElementSibling;
-      list.style.display = 'none';
+      if (list.tagName === 'DIV'){
+        text_content.removeChild(list);
+      }
       currentIndex--;
-      list=spans[currentIndex].nextElementSibling;
-      list.style.display = 'block';
+      next_back(spans[currentIndex]);
     }
   }
