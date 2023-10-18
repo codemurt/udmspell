@@ -5,6 +5,54 @@ let savedSelection;
 var spans=0;
 let currentIndex = -1; // Индекс текущего выделенного слова
 
+//Сохранение положения курсора
+function saveSelection(containerEl) {
+  var range = window.getSelection().getRangeAt(0);
+  var preSelectionRange = range.cloneRange();
+  preSelectionRange.selectNodeContents(containerEl);
+  preSelectionRange.setEnd(range.startContainer, range.startOffset);
+  var start = preSelectionRange.toString().length;
+
+  return {
+      start: start,
+      end: start + range.toString().length
+  };
+}
+
+//Востановление положения курсора
+function restoreSelection(containerEl, savedSelection) {
+  var charIndex = 0;
+  var range = document.createRange();
+  range.setStart(containerEl, 0);
+  range.collapse(true);
+  var nodeStack = [containerEl], node, foundStart = false, stop = false;
+
+  while (!stop && (node = nodeStack.pop())) {
+      if (node.nodeType == 3) {
+          var nextCharIndex = charIndex + node.length;
+          if (!foundStart && savedSelection.start >= charIndex && savedSelection.start <= nextCharIndex) {
+              range.setStart(node, savedSelection.start - charIndex);
+              foundStart = true;
+          }
+          if (foundStart && savedSelection.end >= charIndex && savedSelection.end <= nextCharIndex) {
+              range.setEnd(node, savedSelection.end - charIndex);
+              stop = true;
+          }
+          charIndex = nextCharIndex;
+      } else {
+          var i = node.childNodes.length;
+          while (i--) {
+              nodeStack.push(node.childNodes[i]);
+          }
+      }
+  }
+
+  var sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+}
+
+
 
 //Удаление стилей текста перед вставкой и разделение на абзацы
 function stripStyles(e) {
@@ -57,7 +105,10 @@ function add_word(){
 
   text=text_content.innerHTML;
   const newText = text.replace(/<div>/g, " <br> ");
+
+  var savedSelection = saveSelection(text_content);
   text_content.innerHTML=newText;
+  restoreSelection(text_content, savedSelection);
 
   var array_word=splitTextIntoWords(text_content.innerText);
 
@@ -113,7 +164,10 @@ function sendOnBackend(){
     if(k===0){
         let resultText = text_content.innerHTML;
         resultText =correctDivContentText(resultText);
+
+        var savedSelection = saveSelection(text_content);
         document.getElementById("text_content").innerHTML = resultText;
+        restoreSelection(text_content, savedSelection);
 
         count_error=countTags();
         divCountError.textContent=count_error;
@@ -165,7 +219,10 @@ function updateDICT(new_array){
         DICT[new_array[i].word]=new_array[i].variants;
     }
     resultText =correctDivContentText(resultText);
+
+    var savedSelection = saveSelection(text_content);
     document.getElementById("text_content").innerHTML = resultText;
+    restoreSelection(text_content, savedSelection);
 
     count_error=countTags();
     divCountError.textContent=count_error;
