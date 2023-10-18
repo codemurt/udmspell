@@ -199,39 +199,7 @@ function correctDivContentText(srcText){
                 j=1;
                 word=textValue;
             }
-            /*
-            const dropdownDiv = document.createElement("div");
-            dropdownDiv.className = "dropdown-container";
 
-            const trigger = document.createElement("span");
-            trigger.className = "dropdown-trigger";
-            trigger.innerHTML = `${word}`;
-
-            DivCorrect=document.createElement("div");
-            DivCorrect.id = "rightWordDiv";
-            DivCorrect.setAttribute('contenteditable', 'false');
-
-            DivCorrect.innerHTML=`<div id="lineOne"><img src="/static/images/!.png">    Ихтимал булған төҙәтмә</div>`;
-
-            const list = document.createElement("ul");
-            list.id="dropdownlist";
-            for (let i = 0; i < DICT[cleanWord].length; i++) {
-                const option = document.createElement("li");
-                option.innerHTML = `${DICT[cleanWord][i]}`;
-                list.appendChild(option);
-            }
-            list.setAttribute("onclick", "handleOptionClick(event, this)");
-
-
-            DivCorrect.appendChild(list);
-            DivCorrect.innerHTML += `<button id="ignor" onclick='ignorError(event)'><img id="ignor_img" src="/static/images/new_ignor.png" alt=""><span id="t_ig">Ҡалдырырға</span></button>`;
-
-            dropdownDiv.appendChild(trigger);
-
-            dropdownDiv.appendChild(DivCorrect);
-
-            trigger.setAttribute("onclick", "toggleListDisplayblock(this)");
-            */
             if (j===1){
                 return `<span class='dropdown-trigger' onclick='toggleListDisplayblock(event)'>${word}</span><br> `;
             }else {
