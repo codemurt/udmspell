@@ -109,7 +109,7 @@ text_content.addEventListener('input', function(event) {
 
 //Добавление новых слов в DICT
 function add_word(){
-    console.log('таймер сработал');
+    //console.log('таймер сработал');
 
     let containers = document.getElementById('rightWordDiv');
     if (containers) {
@@ -315,7 +315,7 @@ DivCorrect=document.createElement("div");
 DivCorrect.id = "rightWordDiv";
 DivCorrect.setAttribute('contenteditable', 'false');
 
-DivCorrect.innerHTML=`<div id="lineOne"><img src="/static/images/!.png" alt="">    Ихтимал булған төҙәтмә</div>`;
+DivCorrect.innerHTML=`<div id="lineOne"><img src="/static/images/!.png" alt="">    Тупатон вариантъёс</div>`;
 
 const list_v = document.createElement("ul");
 list_v.id="dropdownlist";
@@ -334,7 +334,7 @@ img.alt = '';
 var leave= document.createElement('span');
 leave.id = 't_ig';
 leave.className = 't_id'
-leave.innerText = 'Ҡалдырырға';
+leave.innerText = 'Кельтоно';
 
 ignorButton.appendChild(img);
 ignorButton.appendChild(leave);

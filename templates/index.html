@@ -3,39 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
           rel="stylesheet"
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
           crossorigin="anonymous">
-    <title>Тикшереү</title>
+    <title>Янгыштэк</title>
     <link type="Image/x-icon" href="/static/images/Group 23.ico" rel="icon">
     <link rel="stylesheet" href="/static/css/style.css?version=5.0">
 
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="navbar-brand"><img class="new_logo" src="/static/images/new_logo.svg" alt="Тикшереү"><h1 class="name">Тикшереү</h1></div>
+    <div class="navbar-brand"><img class="new_logo" src="/static/images/new_logo.svg" alt="Янгыштэк"><h1 class="name">Янгыштэк</h1></div>
 </nav>
 <div id="box">
     <div id="head_container">
         <div class="dbl_btn" id="dbl_btn">
             <button id="error_btn"><img src="/static/images/previous.png"
-                                        id="error_img" alt="үткән хата">
+                                        id="error_img" alt="азьло янгыш">
             </button>
             <button id="error_btn2"><img
                     src="/static/images/next.png"
-                    id="error_img2" alt="киләһе хата"></button>
+                    id="error_img2" alt="вуоно янгыш"></button>
         </div>
         <div class="dbl_btn2">
-            <button id="copy_text_btn"><img src="/static/images/new_copy1.png" id="copy_text_img" alt="тексты тейәргә">Тейәргә</button>
+            <button id="copy_text_btn"><img src="/static/images/new_copy1.png" id="copy_text_img" alt="текстэз кӧчыртоно">Кӧчыртоно</button>
             <button id="clean_text"></button>
         </div>
     </div>
     <div id="text_content" contenteditable="true" spellcheck="false"
          onpaste="stripStyles(event)"></div>
-    <div id="placeholder">Яҙа башлағыҙ...</div>
+    <div id="placeholder">Гожтыны кутске...</div>
     <div id="inform"><span class="inform22" style="display: inline-block; font-family:'Montserrat-Medium';">
-        <div id="count_symbol" style="display: inline-block;"></div> символ, <div id="count_word" style="display: inline-block;"></div> һүҙ | &nbsp;</span><div id="count_error" style="display: inline-block;"></div>төҙәтмә
+        <div id="count_symbol" style="display: inline-block;"></div> символ, <div id="count_word" style="display: inline-block;"></div> кыл | &nbsp;</span><div id="count_error" style="display: inline-block;"></div> янгыш
     </div>
 </div>
 

@@ -8,7 +8,7 @@ from pydantic import BaseModel
 from starlette.requests import Request
 from starlette.responses import FileResponse
 
-ACTUAL_BASH_HUNSPELL_VERSION = "13.10.2023"
+ACTUAL_BASH_HUNSPELL_VERSION = "05.11.2023"
 
 app = FastAPI()
 
@@ -19,8 +19,8 @@ try:
     import hunspell
 
     hobj = hunspell.HunSpell(
-        f'static/hunspell/{ACTUAL_BASH_HUNSPELL_VERSION}/bash.dic',
-        f'static/hunspell/{ACTUAL_BASH_HUNSPELL_VERSION}/bash.aff')
+        f'static/hunspell/{ACTUAL_BASH_HUNSPELL_VERSION}/udm.dic',
+        f'static/hunspell/{ACTUAL_BASH_HUNSPELL_VERSION}/udm.aff')
 except ImportError:
     hobj = None
 
