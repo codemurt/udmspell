@@ -109,7 +109,7 @@ text_content.addEventListener('input', function(event) {
 
 //Добавление новых слов в DICT
 function add_word(){
-    console.log('таймер сработал');
+    //console.log('таймер сработал');
 
     let containers = document.getElementById('rightWordDiv');
     if (containers) {
