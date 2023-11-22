@@ -69,7 +69,7 @@ function stripStyles(e) {
     for (let i = 0; i < paragraphs.length; i++) {
         formattedText += `${paragraphs[i]}<br> `;
     }
-
+    formattedText = formattedText.replace(/[\r\n]/g, '');
     document.execCommand('insertHTML', false, formattedText);
 }
 
@@ -118,10 +118,12 @@ function add_word(){
     let text=text_content.innerHTML;
 
     if(text.includes('<div>')){
-        const newText = text.replace(/<div>/g, "<br> ");
+        let newText = text.replace(/<div>/g, "<br> ");
+        newText = newText.replace(/<\/div>/g, "");
         let savedSelection = saveSelection(text_content);
         text_content.innerHTML=newText;
         restoreSelection(text_content, savedSelection);
+        text=text_content.innerHTML;
     }
 
 
@@ -164,8 +166,8 @@ function add_word(){
 function WordToSpan(words){
     for (let i=0; i < words.length; i++){
         let word = words[i].replace(/<\/?span[^>]*>/g, '');
-        if (word.trim()!=="" && word.split(/(&nbsp;|\s)/).length > 1){
-            word = word.split(/(&nbsp;|\s)/);
+        if (word.trim()!=="" && word.split(/(&nbsp;|\s)/).filter(Boolean).length > 1){
+            word = word.split(/(&nbsp;|\s)/).filter(Boolean);
             word = word.filter(function(word1) {
                 return word1 !== "";
             });
